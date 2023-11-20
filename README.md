@@ -18,11 +18,21 @@ every chapter follows the flow like below
 - error handling
     - using if let condition
     - using .unwrap or .expect
-    - using Box<dyn std::err:Error> 
+    - using `Box<dyn std::err::Error>` 
     - using custom enum
     - using crates
         - anyhow
         - thiserror
+- when to use what
+    - .iter vs .into_iter
+    - rc vs arc
+    - option vs results
+    - explicit vs infer type
+        - .collect
+    - functional vs imperative
+- coding tips
+    - stable sort
+- async await
 - state machine
     - object oriented approach
     - rust type approach
@@ -47,6 +57,11 @@ every chapter follows the flow like below
 - build flags and optimization
 - CI/CD
     - github actions
+    - version management
+        - build environment
+        - toolchain versions
+        - package version
+    - documentation
 - packaging crate
    - as bin executable
        - deb package
