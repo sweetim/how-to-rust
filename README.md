@@ -23,10 +23,21 @@ every chapter follows the flow like below
     - using crates
         - anyhow
         - thiserror
+- state machine
+    - object oriented approach
+    - rust type approach
+    - behavior tree 
 - handling of writing long number
 - splitting of module 
     - single file (monofile)
     - splitting into multiple modules
+- FFI
+    - nodejs
+    - c++
+- application using rust
+    - blockchain
+    - webserver
+    - embedded
 - mocking and testing
     - code coverage
     - parameterized testing
