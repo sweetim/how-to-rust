@@ -28,6 +28,7 @@ every chapter follows the flow like below
     - Box vs rc vs arc
     - String vs str
     - option vs results
+    - Fn vs fn
     - explicit vs infer type
         - .collect
     - functional vs imperative
