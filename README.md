@@ -11,6 +11,9 @@ every chapter follows the flow like below
     - pros and cons of each methodology
 
  the book presentation is closely analogous to cookbook series
+
+# target audience
+intermediate to advance rust developer
  
 # table of contents
 
