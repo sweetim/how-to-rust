@@ -25,19 +25,28 @@ every chapter follows the flow like below
         - thiserror
 - when to use what
     - .iter vs .into_iter
-    - rc vs arc
+    - Box vs rc vs arc
+    - String vs str
     - option vs results
     - explicit vs infer type
         - .collect
     - functional vs imperative
 - coding tips
     - stable sort
+    - handling of writing long number
+- what is this?
+    - abc.0 , abc.1
+    - match Some(abc) @ 1..3
+    - procedural macros
 - async await
+- parser
+    - simple if condition
+    - regex
+    - grammar
 - state machine
     - object oriented approach
     - rust type approach
     - behavior tree 
-- handling of writing long number
 - splitting of module 
     - single file (monofile)
     - splitting into multiple modules
@@ -54,9 +63,11 @@ every chapter follows the flow like below
     - mocking
         - external crate
         - system I/O (network, file, time, etc)
-- build flags and optimization
 - CI/CD
-    - github actions
+    - linting and formatting
+    - build flags and optimization
+    - cloud runner
+        - github actions
     - version management
         - build environment
         - toolchain versions
