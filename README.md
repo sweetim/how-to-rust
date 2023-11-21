@@ -32,6 +32,7 @@ every chapter follows the flow like below
     - explicit vs infer type
         - .collect
     - functional vs imperative
+    - `{:?}` vs `{:#?}`
 - coding tips
     - stable sort
     - handling of writing long number
@@ -61,6 +62,8 @@ every chapter follows the flow like below
 - mocking and testing
     - code coverage
     - parameterized testing
+    - continuous event testing method 
+        - marble diagram
     - mocking
         - external crate
         - system I/O (network, file, time, etc)
@@ -79,3 +82,8 @@ every chapter follows the flow like below
        - deb package
        - windows?
    - as crate and publish to crate.io
+
+
+book concept reference
+- https://moodle.ufsc.br/pluginfile.php/2377667/mod_resource/content/0/Effective_Modern_C__.pdf
+- https://isocpp.org/faq
