@@ -30,6 +30,7 @@ intermediate to advance rust developer
     - using .unwrap or .expect
     - using `Box<dyn std::err::Error>`
     - using custom enum
+    - from trait to convert error
     - using crates
         - anyhow
         - thiserror
