@@ -4,8 +4,8 @@ a book about rust
 # concept
 this book will serve as a quick guideline for the frequent issues that you encounter when writing using rust
 
-every chapter follows the flow like below 
-- topic question 
+every chapter follows the flow like below
+- topic question
 - various implementation details
 - comparison matrix of each implementation
     - pros and cons of each methodology
@@ -14,14 +14,20 @@ every chapter follows the flow like below
 
 # target audience
 intermediate to advance rust developer
- 
+
 # table of contents
 
 - which IDE to use
+    - terminal based
+        - VIM
+        - neovim + Rust Analyzer
+    - UI based
+        - Visual Studio Code + Rust Analyzer
+        - RustRover
 - error handling
     - using if let condition
     - using .unwrap or .expect
-    - using `Box<dyn std::err::Error>` 
+    - using `Box<dyn std::err::Error>`
     - using custom enum
     - using crates
         - anyhow
@@ -29,9 +35,10 @@ intermediate to advance rust developer
 - when to use what
     - .iter vs .into_iter
     - Box vs rc vs arc
+    - Cell vs RefCell vs Mutex vs RwLock
     - String vs str
     - option vs results
-    - Fn vs fn
+    - Fn vs FnMut vs FnOnce vs fn
     - explicit vs infer type
         - .collect
     - functional vs imperative
@@ -42,6 +49,7 @@ intermediate to advance rust developer
 - what is this?
     - abc.0 , abc.1
     - match Some(abc) @ 1..3
+    - declarative macros
     - procedural macros
 - async await
 - parser
@@ -51,13 +59,18 @@ intermediate to advance rust developer
 - state machine
     - object oriented approach
     - rust type approach
-    - behavior tree 
-- splitting of module 
+    - behavior tree
+- splitting of module
     - single file (monofile)
     - splitting into multiple modules
+- splitting to subcrates
+    - motivation
+        - the codebase gets too big and compilation time becomes long, subcrates are separate compilation units that can enhance speed
+        - using procedural macros, because procedural macros can only work from a separate crate
 - FFI
     - nodejs
     - c++
+    - Python integration (PyO3)
 - application using rust
     - blockchain
     - webserver
@@ -65,7 +78,7 @@ intermediate to advance rust developer
 - mocking and testing
     - code coverage
     - parameterized testing
-    - continuous event testing method 
+    - continuous event testing method
         - marble diagram
     - mocking
         - external crate
@@ -84,7 +97,9 @@ intermediate to advance rust developer
    - as bin executable
        - deb package
        - windows?
-   - as crate and publish to crate.io
+   - as crate and publish registry
+        - crate.io
+        - github packages
 
 
 book concept reference
