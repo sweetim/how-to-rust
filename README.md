@@ -25,6 +25,7 @@ intermediate to advance rust developer
         - Visual Studio Code + Rust Analyzer
         - RustRover
 - error handling
+    - how to check what error type is return
     - using if let condition
     - using .unwrap or .expect
     - using `Box<dyn std::err::Error>`
@@ -43,6 +44,8 @@ intermediate to advance rust developer
         - .collect
     - functional vs imperative
     - `{:?}` vs `{:#?}`
+    - lazy vs eager evaluation
+        - https://stackoverflow.com/questions/65459952/what-is-the-difference-between-context-and-with-context-in-anyhow
 - coding tips
     - stable sort
     - handling of writing long number
@@ -71,7 +74,7 @@ intermediate to advance rust developer
     - nodejs
     - c++
     - Python integration (PyO3)
-- application using rust
+- sample application using rust
     - blockchain
     - webserver
     - embedded
