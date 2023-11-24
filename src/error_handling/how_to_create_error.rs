@@ -18,6 +18,17 @@ impl Account {
         }
     }
 
+    pub fn withdraw_with_error_msg(&mut self, amount: u32) -> Result<u32, String> {
+        if amount > self.total_withdrawal_limit {
+            return Err(format!("withdraw limit exceeded total withdrawal limit"));
+        }
+
+        self.amount = self.amount.checked_sub(amount)
+            .ok_or(format!("insufficient balance in account ({})", self.amount))?;
+
+        Ok(self.amount)
+    }
+
     pub fn withdraw(&mut self, amount: u32) -> Result<u32, AccountError> {
         if amount > self.total_withdrawal_limit {
             return Err(AccountError::ExceedWithdrawalLimit);
@@ -40,6 +51,26 @@ mod tests {
         let actual = account.withdraw(50).unwrap();
 
         assert_eq!(actual, 950);
+    }
+
+    #[test]
+    fn withdraw_with_error_msg_limit_error() {
+        let mut account = Account::new(1000, 100);
+        let actual = account.withdraw_with_error_msg(500);
+        assert!(actual.is_err());
+
+        let err = actual.unwrap_err();
+        assert_eq!(err, format!("withdraw limit exceeded total withdrawal limit"));
+    }
+
+    #[test]
+    fn withdraw_with_error_msg_insuffient_error() {
+        let mut account = Account::new(10, 100);
+        let actual = account.withdraw_with_error_msg(50);
+        assert!(actual.is_err());
+
+        let err = actual.unwrap_err();
+        assert_eq!(err, format!("insufficient balance in account ({})", 10));
     }
 
     #[test]

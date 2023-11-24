@@ -12,7 +12,7 @@ pub fn read_student_from_file(path: &str) -> anyhow::Result<Student> {
 /// using anyhow with context information
 /// with_context vs context
 /// https://stackoverflow.com/questions/65459952/what-is-the-difference-between-context-and-with-context-in-anyhow
-fn read_student_from_file_with_context(path: &str) -> anyhow::Result<Student> {
+pub fn read_student_from_file_with_context(path: &str) -> anyhow::Result<Student> {
     let file = std::fs::File::open(&path)
         .with_context(|| format!("failed to read file from ({path})"))?;
 

@@ -3,7 +3,7 @@ use std::fmt::{Display, Formatter};
 use super::common::Student;
 
 #[derive(Debug)]
-enum ReadStudentFromFileError {
+pub enum ReadStudentFromFileError {
     FileError(std::io::Error),
     DeserializationError(serde_json::Error),
 }
@@ -29,7 +29,7 @@ impl From<std::io::Error> for ReadStudentFromFileError {
     }
 }
 
-fn read_student_from_file(path: &str) -> Result<Student, ReadStudentFromFileError> {
+pub fn read_student_from_file(path: &str) -> Result<Student, ReadStudentFromFileError> {
     let file = std::fs::File::open(&path)
         .map_err(ReadStudentFromFileError::FileError)?;
 
@@ -42,7 +42,7 @@ fn read_student_from_file(path: &str) -> Result<Student, ReadStudentFromFileErro
     Ok(student)
 }
 
-fn read_student_from_file_using_try(path: &str) -> Result<Student, ReadStudentFromFileError> {
+pub fn read_student_from_file_using_try(path: &str) -> Result<Student, ReadStudentFromFileError> {
     let file = std::fs::File::open(&path)?;
     let text = std::io::read_to_string(&file)?;
     let student = serde_json::from_str(&text)?;
@@ -50,7 +50,7 @@ fn read_student_from_file_using_try(path: &str) -> Result<Student, ReadStudentFr
     Ok(student)
 }
 
-fn read_student_from_file_with_dynamic_trait(path: &str) -> Result<Student, Box<dyn std::error::Error>> {
+pub fn read_student_from_file_with_dynamic_trait(path: &str) -> Result<Student, Box<dyn std::error::Error>> {
     let file = std::fs::File::open(&path)
         .map_err(ReadStudentFromFileError::FileError)?;
 
@@ -63,7 +63,7 @@ fn read_student_from_file_with_dynamic_trait(path: &str) -> Result<Student, Box<
     Ok(student)
 }
 
-fn read_student_from_file_with_dynamic_trait_using_try(path: &str) -> Result<Student, Box<dyn std::error::Error>> {
+pub fn read_student_from_file_with_dynamic_trait_using_try(path: &str) -> Result<Student, Box<dyn std::error::Error>> {
     let file = std::fs::File::open(&path)?;
     let text = std::io::read_to_string(&file)?;
     let student = serde_json::from_str(&text)?;

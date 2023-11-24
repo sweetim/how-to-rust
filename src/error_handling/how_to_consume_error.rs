@@ -1,12 +1,13 @@
 use super::how_to_create_error::{AccountError, Account};
 
-fn consume_using_unwrap() {
+pub fn consume_using_unwrap() {
     let mut account = Account::new(1000, 100);
 
     let amount = account.withdraw(500).unwrap();
+    println!("amount = {}", amount);
 }
 
-fn consume_using_match() {
+pub fn consume_using_match() {
     let mut account = Account::new(1000, 100);
 
     match account.withdraw(500) {
@@ -16,24 +17,29 @@ fn consume_using_match() {
             AccountError::InsufficientBalance(_) => todo!(),
         },
     };
+
+    match account.withdraw_with_error_msg(500) {
+        Ok(amount) => amount,
+        Err(err) => todo!(),
+    };
 }
 
-fn consume_using_if_let_without_knowing_error_type() {
+pub fn consume_using_if_let_without_knowing_error_type() {
     let mut account = Account::new(1000, 100);
 
     if let Ok(amount) = account.withdraw(500) {
-        todo!()
+        println!("amount = {}", amount);
     } else {
         println!("fail to withdraw")
     }
 }
 
-fn consume_using_if_let_with_error_type() {
+pub fn consume_using_if_let_with_error_type() {
     let mut account = Account::new(1000, 100);
     let withdrawal_result = account.withdraw(500);
 
     if let Ok(amount) = withdrawal_result {
-        todo!()
+        println!("amount = {}", amount);
     } else {
         println!("fail to withdraw - {:?}", withdrawal_result.err().unwrap());
 
@@ -41,7 +47,7 @@ fn consume_using_if_let_with_error_type() {
     }
 }
 
-fn propragate_error_to_caller() -> Result<u32, AccountError> {
+pub fn propragate_error_to_caller() -> Result<u32, AccountError> {
     let mut account = Account::new(1000, 100);
     let amount = account.withdraw(500)?;
 
