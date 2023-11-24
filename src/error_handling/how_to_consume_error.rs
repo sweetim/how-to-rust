@@ -3,7 +3,7 @@ use super::how_to_create_error::{AccountError, Account};
 fn consume_using_unwrap() {
     let mut account = Account::new(1000, 100);
 
-    account.withdraw(500).unwrap();
+    let amount = account.withdraw(500).unwrap();
 }
 
 fn consume_using_match() {
@@ -36,6 +36,8 @@ fn consume_using_if_let_with_error_type() {
         todo!()
     } else {
         println!("fail to withdraw - {:?}", withdrawal_result.err().unwrap());
+
+        // to know the error detail can use match like above
     }
 }
 

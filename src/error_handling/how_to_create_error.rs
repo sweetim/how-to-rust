@@ -23,12 +23,10 @@ impl Account {
             return Err(AccountError::ExceedWithdrawalLimit);
         }
 
-        if let Some(new_amount) = self.amount.checked_sub(amount) {
-            self.amount = new_amount;
-            return Ok(self.amount);
-        } else {
-            return Err(AccountError::InsufficientBalance(self.amount));
-        }
+        self.amount = self.amount.checked_sub(amount)
+            .ok_or(AccountError::InsufficientBalance(self.amount))?;
+
+        Ok(self.amount)
     }
 }
 
