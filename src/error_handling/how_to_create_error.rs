@@ -1,24 +1,24 @@
 #[derive(Debug)]
-struct Account {
+pub struct Account {
     amount: u32,
     total_withdrawal_limit: u32,
 }
 
 #[derive(Debug, PartialEq)]
-enum AccountError {
+pub enum AccountError {
     ExceedWithdrawalLimit,
     InsufficientBalance(u32),
 }
 
 impl Account {
-    fn new(amount: u32, total_withdrawal_limit: u32) -> Self {
+    pub fn new(amount: u32, total_withdrawal_limit: u32) -> Self {
         Self {
             amount,
             total_withdrawal_limit
         }
     }
 
-    fn withdraw(&mut self, amount: u32) -> Result<u32, AccountError> {
+    pub fn withdraw(&mut self, amount: u32) -> Result<u32, AccountError> {
         if amount > self.total_withdrawal_limit {
             return Err(AccountError::ExceedWithdrawalLimit);
         }
