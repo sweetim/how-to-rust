@@ -46,7 +46,11 @@ intermediate to advance rust developer
     - functional vs imperative
     - `{:?}` vs `{:#?}`
     - lazy vs eager evaluation
-        - https://stackoverflow.com/questions/65459952/what-is-the-difference-between-context-and-with-context-in-anyhow
+        - how to know a function is lazy evaluated?
+        - how to implement lazy evaluated fn?
+        - example of lazy evaluation fn
+            - ok_or vs ok_or_else
+            - https://stackoverflow.com/questions/65459952/what-is-the-difference-between-context-and-with-context-in-anyhow
 - coding tips
     - stable sort
     - handling of writing long number

@@ -24,7 +24,7 @@ impl Account {
         }
 
         self.amount = self.amount.checked_sub(amount)
-            .ok_or(format!("insufficient balance in account ({})", self.amount))?;
+            .ok_or_else(|| format!("insufficient balance in account ({})", self.amount))?;
 
         Ok(self.amount)
     }
@@ -35,7 +35,7 @@ impl Account {
         }
 
         self.amount = self.amount.checked_sub(amount)
-            .ok_or(AccountError::InsufficientBalance(self.amount))?;
+            .ok_or_else(|| AccountError::InsufficientBalance(self.amount))?;
 
         Ok(self.amount)
     }
