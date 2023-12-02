@@ -70,6 +70,7 @@ intermediate to advance rust developer
     - [X] how to create chaining function
     - [X] how to ternary operator
     - [X] how to handle safe arithmetic operation
+    - [X] how to handle large test sample
 - [ ] what is this?
     - [ ] abc.0 , abc.1
     - [ ] match Some(abc) @ 1..3
