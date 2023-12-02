@@ -1,25 +1,25 @@
-struct TemperatureSensorNoChaining {
+pub struct TemperatureSensorNoChaining {
     sampling_rate_hz: f32,
     is_enabled: bool,
 }
 
 impl TemperatureSensorNoChaining {
-    fn create() -> Self {
+    pub fn create() -> Self {
         Self {
             sampling_rate_hz: 1.0,
             is_enabled: false
         }
     }
 
-    fn configure_sampling_rate(&mut self, rate_hz: f32) {
+    pub fn configure_sampling_rate(&mut self, rate_hz: f32) {
         self.sampling_rate_hz = rate_hz;
     }
 
-    fn activate(&mut self, enabled: bool) {
+    pub fn activate(&mut self, enabled: bool) {
         self.is_enabled = enabled;
     }
 
-    fn get_value(&self) -> Option<f32> {
+    pub fn get_value(&self) -> Option<f32> {
         match self.is_enabled {
             true => Some(self.sampling_rate_hz * 123.0),
             false => None,
@@ -27,30 +27,30 @@ impl TemperatureSensorNoChaining {
     }
 }
 
-struct TemperatureSensorChaining {
+pub struct TemperatureSensorChaining {
     sampling_rate_hz: f32,
     is_enabled: bool,
 }
 
 impl TemperatureSensorChaining {
-    fn create() -> Self {
+    pub fn create() -> Self {
         Self {
             sampling_rate_hz: 1.0,
             is_enabled: false
         }
     }
 
-    fn configure_sampling_rate(&mut self, rate_hz: f32) -> &mut Self {
+    pub fn configure_sampling_rate(&mut self, rate_hz: f32) -> &mut Self {
         self.sampling_rate_hz = rate_hz;
         self
     }
 
-    fn activate(&mut self, enabled: bool) -> &mut Self {
+    pub fn activate(&mut self, enabled: bool) -> &mut Self {
         self.is_enabled = enabled;
         self
     }
 
-    fn get_value(&self) -> Option<f32> {
+    pub fn get_value(&self) -> Option<f32> {
         match self.is_enabled {
             true => Some(self.sampling_rate_hz * 123.0),
             false => None,

@@ -20,7 +20,7 @@ pub fn consume_using_match() {
 
     match account.withdraw_with_error_msg(500) {
         Ok(amount) => amount,
-        Err(err) => todo!(),
+        Err(_) => todo!(),
     };
 }
 

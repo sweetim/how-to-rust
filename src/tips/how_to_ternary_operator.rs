@@ -1,7 +1,7 @@
 const MEMBER_RATE: f32 = 10.0;
 const NON_MEMBER_RATE: f32 = 5.0;
 
-fn get_discount_rate_using_if_else_style_1(is_member: bool) -> f32 {
+pub fn get_discount_rate_using_if_else_style_1(is_member: bool) -> f32 {
     if is_member {
         MEMBER_RATE
     } else {
@@ -9,11 +9,11 @@ fn get_discount_rate_using_if_else_style_1(is_member: bool) -> f32 {
     }
 }
 
-fn get_discount_rate_using_if_else_style_2(is_member: bool) -> f32 {
+pub fn get_discount_rate_using_if_else_style_2(is_member: bool) -> f32 {
     if is_member { MEMBER_RATE } else { NON_MEMBER_RATE }
 }
 
-fn get_discount_rate_using_if_else_style_3(is_member: bool) -> f32 {
+pub fn get_discount_rate_using_if_else_style_3(is_member: bool) -> f32 {
     if is_member {
         return MEMBER_RATE;
     }
@@ -21,14 +21,14 @@ fn get_discount_rate_using_if_else_style_3(is_member: bool) -> f32 {
     NON_MEMBER_RATE
 }
 
-fn get_discount_rate_using_match(is_member: bool) -> f32 {
+pub fn get_discount_rate_using_match(is_member: bool) -> f32 {
     match is_member {
         true => MEMBER_RATE,
         false => NON_MEMBER_RATE
     }
 }
 
-fn get_discount_rate_using_chaining(is_member: bool) -> f32 {
+pub fn get_discount_rate_using_chaining(is_member: bool) -> f32 {
     is_member
         .then(|| MEMBER_RATE)
         .unwrap_or_else(|| NON_MEMBER_RATE)
