@@ -56,6 +56,7 @@ intermediate to advance rust developer
 - coding tips
     - stable sort
     - handling of writing long number
+    - how to create chaining function
 - what is this?
     - abc.0 , abc.1
     - match Some(abc) @ 1..3
