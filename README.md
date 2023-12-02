@@ -56,7 +56,7 @@ intermediate to advance rust developer
 - coding tips
     - stable sort
     - how to input multiple test sample
-    - handling of writing long number
+    - how to write long number
     - how to create chaining function
     - how to ternary operator
     - how to handle safe arithmetic operation
