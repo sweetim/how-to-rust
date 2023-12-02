@@ -55,8 +55,11 @@ intermediate to advance rust developer
             - https://stackoverflow.com/questions/65459952/what-is-the-difference-between-context-and-with-context-in-anyhow
 - coding tips
     - stable sort
+    - how to input multiple test sample
     - handling of writing long number
     - how to create chaining function
+    - how to ternary operator
+    - how to handle safe arithmetic operation
 - what is this?
     - abc.0 , abc.1
     - match Some(abc) @ 1..3
