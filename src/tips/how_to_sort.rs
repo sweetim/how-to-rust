@@ -6,8 +6,6 @@ pub struct Student {
 
 #[cfg(test)]
 mod tests {
-    use std::cmp::Ordering;
-
     use super::*;
 
     fn get_sample() -> Vec<Student> {
@@ -95,7 +93,7 @@ mod tests {
 
         sample.sort_by(|a, b| {
             match a.name.cmp(&b.name) {
-                Ordering::Equal => a.score.cmp(&b.score),
+                std::cmp::Ordering::Equal => a.score.cmp(&b.score),
                 other => other,
             }
         });
@@ -142,7 +140,7 @@ mod tests {
 
         sample.sort_unstable_by(|a, b| {
             match a.name.cmp(&b.name) {
-                Ordering::Equal => a.score.cmp(&b.score),
+                std::cmp::Ordering::Equal => a.score.cmp(&b.score),
                 other => other,
             }
         });
