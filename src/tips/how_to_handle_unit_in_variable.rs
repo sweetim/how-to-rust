@@ -59,5 +59,8 @@ mod tests {
             battery_voltage_mV: 120000.1,
             uptime_ms: 21300,
         };
+
+        assert_eq!(vehicle_status.speed, vehicle_status_with_docs.speed);
+        assert_eq!(vehicle_status_with_unit_suffix.speed_kph, vehicle_status.speed);
     }
 }
