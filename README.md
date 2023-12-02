@@ -54,7 +54,11 @@ intermediate to advance rust developer
             - https://deepu.tech/functional-programming-in-rust/
             - https://stackoverflow.com/questions/65459952/what-is-the-difference-between-context-and-with-context-in-anyhow
 - coding tips
-    - stable sort
+    - how to sort
+        - 1D
+        - 2D
+            - stable
+            - unstable
     - how to input multiple test sample
     - how to write long number
     - how to create chaining function
