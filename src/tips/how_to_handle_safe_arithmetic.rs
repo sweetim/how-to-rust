@@ -11,12 +11,11 @@ mod tests {
     use super::*;
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "attempt to add with overflow")]
     fn addition_normal_overflow() {
         let a = u32::MAX;
         let b = 1;
 
-        // attempt to add with overflow
         addition_normal(a, b);
     }
 
