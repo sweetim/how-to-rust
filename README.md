@@ -72,6 +72,7 @@ intermediate to advance rust developer
     - [X] how to handle safe arithmetic operation
     - [X] how to handle large test sample
     - [X] how to handle unit in variables
+    - [X] how to write string variables
 - [ ] what is this?
     - [ ] abc.0 , abc.1
     - [ ] match Some(abc) @ 1..3
