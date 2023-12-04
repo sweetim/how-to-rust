@@ -60,7 +60,7 @@ mod tests {
         assert_eq!(get_samples().len(), 10);
     }
 
-    fn get_test_sample_from_file() -> Vec<UserIdentity> {
+    fn get_test_sample_from_file_at_runtime() -> Vec<UserIdentity> {
         let file_path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("resources")
             .join("sample_data.json");
@@ -70,7 +70,17 @@ mod tests {
     }
 
     #[test]
-    fn store_test_sample_in_file_and_import_when_needed() {
-        assert_eq!(get_test_sample_from_file(), get_samples());
+    fn store_test_sample_in_file_and_import_when_needed_at_runtime() {
+        assert_eq!(get_test_sample_from_file_at_runtime(), get_samples());
+    }
+
+    fn get_test_sample_from_file_at_compile_time() -> Vec<UserIdentity> {
+        let content = include_str!("../../resources/sample_data.json");
+        serde_json::from_str(&content).unwrap()
+    }
+
+    #[test]
+    fn store_test_sample_in_file_and_import_when_needed_at_compile_time() {
+        assert_eq!(get_test_sample_from_file_at_compile_time(), get_samples());
     }
 }
