@@ -4,44 +4,29 @@ pub struct Student {
     score: u8
 }
 
+impl Student {
+    pub fn new(name: impl Into<String>, score: u8) -> Self {
+        Self {
+            name: name.into(),
+            score
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     fn get_sample() -> Vec<Student> {
         vec![
-            Student {
-                name: String::from("aa"),
-                score: 60
-            },
-            Student {
-                name: String::from("ca"),
-                score: 50
-            },
-            Student {
-                name: String::from("ab"),
-                score: 80
-            },
-            Student {
-                name: String::from("ca"),
-                score: 10
-            },
-            Student {
-                name: String::from("aa"),
-                score: 90
-            },
-            Student {
-                name: String::from("ba"),
-                score: 20
-            },
-            Student {
-                name: String::from("aa"),
-                score: 80
-            },
-            Student {
-                name: String::from("ab"),
-                score: 90
-            },
+            Student::new("aa", 60),
+            Student::new("ca", 50),
+            Student::new("ab", 80),
+            Student::new("ca", 10),
+            Student::new("aa", 90),
+            Student::new("ba", 20),
+            Student::new("aa", 80),
+            Student::new("ab", 90),
         ]
     }
 
@@ -52,38 +37,14 @@ mod tests {
         sample.sort_by(|a, b| a.name.cmp(&b.name));
 
         assert_eq!(sample, vec![
-            Student {
-                name: String::from("aa"),
-                score: 60
-            },
-            Student {
-                name: String::from("aa"),
-                score: 90
-            },
-            Student {
-                name: String::from("aa"),
-                score: 80
-            },
-            Student {
-                name: String::from("ab"),
-                score: 80
-            },
-            Student {
-                name: String::from("ab"),
-                score: 90
-            },
-            Student {
-                name: String::from("ba"),
-                score: 20
-            },
-            Student {
-                name: String::from("ca"),
-                score: 50
-            },
-            Student {
-                name: String::from("ca"),
-                score: 10
-            },
+            Student::new("aa", 60),
+            Student::new("aa", 90),
+            Student::new("aa", 80),
+            Student::new("ab", 80),
+            Student::new("ab", 90),
+            Student::new("ba", 20),
+            Student::new("ca", 50),
+            Student::new("ca", 10),
         ])
     }
 
@@ -99,38 +60,14 @@ mod tests {
         });
 
         assert_eq!(sample, vec![
-            Student {
-                name: String::from("aa"),
-                score: 60
-            },
-            Student {
-                name: String::from("aa"),
-                score: 80
-            },
-            Student {
-                name: String::from("aa"),
-                score: 90
-            },
-            Student {
-                name: String::from("ab"),
-                score: 80
-            },
-            Student {
-                name: String::from("ab"),
-                score: 90
-            },
-            Student {
-                name: String::from("ba"),
-                score: 20
-            },
-            Student {
-                name: String::from("ca"),
-                score: 10
-            },
-            Student {
-                name: String::from("ca"),
-                score: 50
-            },
+            Student::new("aa", 60),
+            Student::new("aa", 80),
+            Student::new("aa", 90),
+            Student::new("ab", 80),
+            Student::new("ab", 90),
+            Student::new("ba", 20),
+            Student::new("ca", 10),
+            Student::new("ca", 50),
         ])
     }
 
@@ -146,38 +83,14 @@ mod tests {
         });
 
         assert_eq!(sample, vec![
-            Student {
-                name: String::from("aa"),
-                score: 60
-            },
-            Student {
-                name: String::from("aa"),
-                score: 80
-            },
-            Student {
-                name: String::from("aa"),
-                score: 90
-            },
-            Student {
-                name: String::from("ab"),
-                score: 80
-            },
-            Student {
-                name: String::from("ab"),
-                score: 90
-            },
-            Student {
-                name: String::from("ba"),
-                score: 20
-            },
-            Student {
-                name: String::from("ca"),
-                score: 10
-            },
-            Student {
-                name: String::from("ca"),
-                score: 50
-            },
+            Student::new("aa", 60),
+            Student::new("aa", 80),
+            Student::new("aa", 90),
+            Student::new("ab", 80),
+            Student::new("ab", 90),
+            Student::new("ba", 20),
+            Student::new("ca", 10),
+            Student::new("ca", 50),
         ])
     }
 }
