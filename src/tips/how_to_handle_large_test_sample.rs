@@ -102,7 +102,7 @@ mod tests {
     }
 
     #[test]
-    fn it_faker() {
+    fn generate_fake_test_sample() {
         assert_eq!(generate_fake_sample_data(), get_samples());
     }
 }
