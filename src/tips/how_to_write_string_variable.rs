@@ -12,6 +12,9 @@ mod tests {
             "year": 2023
         }"#;
 
+        let text_3 = include_str!("../../resources/string_variable.txt");
+
         assert_eq!(text_1, text_2);
+        assert_eq!(text_1, text_3);
     }
 }
