@@ -6,6 +6,14 @@ pub fn addition_safe(a: u32, b: u32) -> Option<u32> {
     a.checked_add(b)
 }
 
+pub fn subtraction_normal(a: u32, b: u32) -> u32 {
+    a - b
+}
+
+pub fn subtraction_safe(a: u32, b: u32) -> Option<u32> {
+    a.checked_sub(b)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -25,5 +33,22 @@ mod tests {
         let b = 1;
 
         assert!(addition_safe(a, b).is_none());
+    }
+
+    #[test]
+    #[should_panic(expected = "attempt to subtract with overflow")]
+    fn subtraction_normal_overflow() {
+        let a = u32::MIN;
+        let b = 1;
+
+        subtraction_normal(a, b);
+    }
+
+    #[test]
+    fn subtraction_safe_overflow() {
+        let a = u32::MIN;
+        let b = 1;
+
+        assert!(subtraction_safe(a, b).is_none());
     }
 }
