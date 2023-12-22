@@ -1,3 +1,4 @@
+pub mod how_to_have_pretty_assert;
 pub mod how_to_chain_method;
 pub mod how_to_handle_large_test_sample;
 pub mod how_to_handle_unit_in_variable;
