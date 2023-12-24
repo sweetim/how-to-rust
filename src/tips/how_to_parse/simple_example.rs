@@ -1,5 +1,11 @@
-use nom::{bytes::complete::tag, sequence::{tuple, delimited, terminated}, IResult, combinator::opt, character::complete::space0, number::complete::float};
-use serde::de::value;
+use nom::{
+    bytes::complete::tag,
+    character::complete::space0,
+    combinator::opt,
+    number::complete::float,
+    sequence::{delimited, terminated, tuple},
+    IResult,
+};
 
 #[derive(Debug, PartialEq)]
 pub struct VirtualMemory {
@@ -10,19 +16,18 @@ pub struct VirtualMemory {
 }
 
 pub fn parse_virtual_memory_using_normal(input: &str) -> VirtualMemory {
-    let mut tokens = input
-        .split(":")
-        .nth(1)
-        .unwrap()
-        .split(",");
+    let mut tokens = input.split(":").nth(1).unwrap().split(",");
 
     let mut parse_field = |key: &str| {
         tokens
-            .next().unwrap()
+            .next()
+            .unwrap()
             .split(key)
-            .next().unwrap()
+            .next()
+            .unwrap()
             .trim()
-            .parse::<f32>().unwrap()
+            .parse::<f32>()
+            .unwrap()
     };
 
     let total = parse_field("total");
@@ -30,15 +35,17 @@ pub fn parse_virtual_memory_using_normal(input: &str) -> VirtualMemory {
 
     let mut tokens = tokens.next().unwrap().split("used.");
 
-    let used = tokens
-        .next().unwrap()
-        .trim()
-        .parse::<f32>().unwrap();
+    let used = tokens.next().unwrap().trim().parse::<f32>().unwrap();
 
-    let available = tokens.next().unwrap().split("avail")
-        .next().unwrap()
+    let available = tokens
+        .next()
+        .unwrap()
+        .split("avail")
+        .next()
+        .unwrap()
         .trim()
-        .parse::<f32>().unwrap();
+        .parse::<f32>()
+        .unwrap();
 
     VirtualMemory {
         total,
@@ -52,10 +59,10 @@ pub fn parse_virtual_memory_simple_using_regex(input: &str) -> VirtualMemory {
     let re = regex::Regex::new(r"MiB Swap:\s+(\d+\.\d+)\s+total,\s+(\d+\.\d+)\s+free,\s+(\d+\.\d+)\s+used\.\s+(\d+\.\d+)\s+avail Mem")
         .unwrap();
 
-        let mut values = re.captures_iter(input)
-            .map(|captures| captures.extract::<4>())
-            .map(|captures| captures.1)
-            .flat_map(|text| text.into_iter().map(|t| str::parse::<f32>(t).unwrap()));
+    let mut values = re
+        .captures_iter(input)
+        .map(|captures| captures.extract::<4>().1)
+        .flat_map(|text| text.into_iter().map(str::parse::<f32>).map(Result::unwrap));
 
     VirtualMemory {
         total: values.next().unwrap(),
@@ -79,7 +86,8 @@ pub fn parse_virtual_memory_using_parser_combinator_nom(input: &str) -> VirtualM
         parse_field("free"),
         parse_field("used."),
         parse_field("avail Mem"),
-    ))(input).unwrap();
+    ))(input)
+    .unwrap();
 
     VirtualMemory {
         total: virtual_memory.1,
