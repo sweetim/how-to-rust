@@ -13,26 +13,32 @@ mod tests {
 
     #[test]
     fn it_show_different_usage_of_parse_patterns_in_closure() {
+        let expected = vec![123, 321];
         let input = vec!["123", "321"];
 
-        let actual_1 = input.iter()
+        let actual_using_iter = input.iter()
             .filter_map(|x| x.parse::<u32>().ok())
             .collect::<Vec<_>>();
 
-        let actual_2 = input.clone()
+        let actual_using_filter_map_ok_closure = input.clone()
             .into_iter()
             .map(str::parse::<u32>)
             .filter_map(|e| e.ok())
             .collect::<Vec<_>>();
 
-        let actual_3 = input.into_iter()
+        let actual_using_filter_map_method = input.clone()
+            .into_iter()
+            .map(str::parse::<u32>)
+            .filter_map(Result::ok)
+            .collect::<Vec<_>>();
+
+        let actual_using_into_iter = input.into_iter()
             .filter_map(|x| x.parse::<u32>().ok())
             .collect::<Vec<_>>();
 
-        let expected = vec![123, 321];
-
-        assert_eq!(actual_1, expected);
-        assert_eq!(actual_2, expected);
-        assert_eq!(actual_3, expected);
+        assert_eq!(actual_using_iter, expected);
+        assert_eq!(actual_using_filter_map_ok_closure, expected);
+        assert_eq!(actual_using_filter_map_method, expected);
+        assert_eq!(actual_using_into_iter, expected);
     }
 }
