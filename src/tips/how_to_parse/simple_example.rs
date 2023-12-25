@@ -70,22 +70,27 @@ pub fn parse_virtual_memory_using_parser_combinator_nom(input: &str) -> VirtualM
     }
 }
 
-#[test]
-fn it_can_parse_virtual_memory_simple() {
-    let input = "MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem";
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    let actual_1 = parse_virtual_memory_using_delimiter(input);
-    let actual_2 = parse_virtual_memory_simple_using_regex(input);
-    let actual_3 = parse_virtual_memory_using_parser_combinator_nom(input);
+    #[test]
+    fn it_can_parse_virtual_memory_simple() {
+        let input = "MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem";
 
-    let expected = VirtualMemory {
-        total: 3048.0,
-        free: 2048.0,
-        used: 0.0,
-        available: 3392.8,
-    };
+        let actual_1 = parse_virtual_memory_using_delimiter(input);
+        let actual_2 = parse_virtual_memory_simple_using_regex(input);
+        let actual_3 = parse_virtual_memory_using_parser_combinator_nom(input);
 
-    assert_eq!(actual_1, expected);
-    assert_eq!(actual_2, expected);
-    assert_eq!(actual_3, expected);
+        let expected = VirtualMemory {
+            total: 3048.0,
+            free: 2048.0,
+            used: 0.0,
+            available: 3392.8,
+        };
+
+        assert_eq!(actual_1, expected);
+        assert_eq!(actual_2, expected);
+        assert_eq!(actual_3, expected);
+    }
 }
