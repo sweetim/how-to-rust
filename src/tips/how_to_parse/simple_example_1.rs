@@ -7,6 +7,8 @@ use nom::{
     IResult,
 };
 
+use super::common::parse_field;
+
 #[derive(Debug, PartialEq)]
 pub struct VirtualMemory {
     total: f32,
@@ -45,13 +47,6 @@ pub fn parse_virtual_memory_simple_using_regex(input: &str) -> VirtualMemory {
     }
 }
 
-fn parse_field<'a>(key: &'static str) -> impl FnMut(&'a str) -> IResult<&'a str, f32> {
-    terminated(
-        delimited(space0, float, space0),
-        terminated(tag(key), opt(tag(","))),
-    )
-}
-
 pub fn parse_virtual_memory_using_parser_combinator_nom(input: &str) -> VirtualMemory {
     let (_, virtual_memory) = tuple((
         tag("MiB Swap:"),
@@ -78,9 +73,9 @@ mod tests {
     fn it_can_parse_virtual_memory_simple() {
         let input = "MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem";
 
-        let actual_1 = parse_virtual_memory_using_delimiter(input);
-        let actual_2 = parse_virtual_memory_simple_using_regex(input);
-        let actual_3 = parse_virtual_memory_using_parser_combinator_nom(input);
+        let actual_delimiter = parse_virtual_memory_using_delimiter(input);
+        let actual_regex = parse_virtual_memory_simple_using_regex(input);
+        let actual_parser_combinator_nom = parse_virtual_memory_using_parser_combinator_nom(input);
 
         let expected = VirtualMemory {
             total: 3048.0,
@@ -89,8 +84,8 @@ mod tests {
             available: 3392.8,
         };
 
-        assert_eq!(actual_1, expected);
-        assert_eq!(actual_2, expected);
-        assert_eq!(actual_3, expected);
+        assert_eq!(actual_delimiter, expected);
+        assert_eq!(actual_regex, expected);
+        assert_eq!(actual_parser_combinator_nom, expected);
     }
 }
