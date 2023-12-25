@@ -15,43 +15,16 @@ pub struct VirtualMemory {
     available: f32,
 }
 
-pub fn parse_virtual_memory_using_normal(input: &str) -> VirtualMemory {
-    let mut tokens = input.split(":").nth(1).unwrap().split(",");
-
-    let mut parse_field = |key: &str| {
-        tokens
-            .next()
-            .unwrap()
-            .split(key)
-            .next()
-            .unwrap()
-            .trim()
-            .parse::<f32>()
-            .unwrap()
-    };
-
-    let total = parse_field("total");
-    let free = parse_field("free");
-
-    let mut tokens = tokens.next().unwrap().split("used.");
-
-    let used = tokens.next().unwrap().trim().parse::<f32>().unwrap();
-
-    let available = tokens
-        .next()
-        .unwrap()
-        .split("avail")
-        .next()
-        .unwrap()
-        .trim()
-        .parse::<f32>()
-        .unwrap();
+pub fn parse_virtual_memory_using_delimiter(input: &str) -> VirtualMemory {
+    let mut output = input
+        .split_whitespace()
+        .filter_map(|text| text.parse::<f32>().ok());
 
     VirtualMemory {
-        total,
-        free,
-        used,
-        available,
+        total: output.next().unwrap(),
+        free: output.next().unwrap(),
+        used: output.next().unwrap(),
+        available: output.next().unwrap(),
     }
 }
 
@@ -99,14 +72,14 @@ pub fn parse_virtual_memory_using_parser_combinator_nom(input: &str) -> VirtualM
 
 #[test]
 fn it_can_parse_virtual_memory_simple() {
-    let input = "MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem";
+    let input = "MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem";
 
-    let actual_1 = parse_virtual_memory_using_normal(input);
+    let actual_1 = parse_virtual_memory_using_delimiter(input);
     let actual_2 = parse_virtual_memory_simple_using_regex(input);
     let actual_3 = parse_virtual_memory_using_parser_combinator_nom(input);
 
     let expected = VirtualMemory {
-        total: 2048.0,
+        total: 3048.0,
         free: 2048.0,
         used: 0.0,
         available: 3392.8,
