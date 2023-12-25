@@ -11,15 +11,15 @@ use super::common::parse_field;
 
 #[derive(Debug, PartialEq)]
 pub struct CpuStates {
-    id: i32,
-    user: f32,
-    system: f32,
-    nice: f32,
-    idle: f32,
-    io_wait: f32,
-    hw_irq: f32,
-    soft_irq: f32,
-    steal: f32,
+    pub id: i32,
+    pub user: f32,
+    pub system: f32,
+    pub nice: f32,
+    pub idle: f32,
+    pub io_wait: f32,
+    pub hw_irq: f32,
+    pub soft_irq: f32,
+    pub steal: f32,
 }
 
 pub fn parse_cpu_states_using_delimiter(input: &str) -> CpuStates {
@@ -48,54 +48,60 @@ pub fn parse_cpu_states_using_delimiter(input: &str) -> CpuStates {
     }
 }
 
-pub fn parse_cpu_states_using_regex(input: &str) -> CpuStates {
-    let re = regex::Regex::new(r"^%Cpu([\d]+|\b\(s\))\s*:\s*(\d+.\d+)\sus,\s*(\d+.\d+)\ssy,\s*(\d+.\d+)\sni,\s*(\d+.\d+)\sid,\s*(\d+.\d+)\swa,\s*(\d+.\d+)\shi,\s*(\d+.\d+)\ssi,\s*(\d+.\d+)\sst")
+pub fn parse_cpu_states_using_regex(input: &str) -> Vec<CpuStates> {
+    let re = regex::RegexBuilder::new(r"^%Cpu([\d]+|\b\(s\))\s*:\s*(\d+.\d+)\sus,\s*(\d+.\d+)\ssy,\s*(\d+.\d+)\sni,\s*(\d+.\d+)\sid,\s*(\d+.\d+)\swa,\s*(\d+.\d+)\shi,\s*(\d+.\d+)\ssi,\s*(\d+.\d+)\sst")
+        .multi_line(true)
+        .build()
         .unwrap();
 
-    let mut tokens = re
+    let tokens = re
         .captures_iter(input)
         .map(|captures| captures.extract::<9>().1)
         .flatten()
-        .map(|text| text.parse::<f32>().unwrap_or(-1.0));
+        .map(|text| text.parse::<f32>().unwrap_or(-1.0))
+        .collect::<Vec<_>>();
 
-    CpuStates {
-        id: tokens.next().unwrap() as i32,
-        user: tokens.next().unwrap(),
-        system: tokens.next().unwrap(),
-        nice: tokens.next().unwrap(),
-        idle: tokens.next().unwrap(),
-        io_wait: tokens.next().unwrap(),
-        hw_irq: tokens.next().unwrap(),
-        soft_irq: tokens.next().unwrap(),
-        steal: tokens.next().unwrap(),
-    }
+    tokens
+        .chunks(9)
+        .map(|chunk| CpuStates {
+            id: chunk[0] as i32,
+            user: chunk[1],
+            system: chunk[2],
+            nice: chunk[3],
+            idle: chunk[4],
+            io_wait: chunk[5],
+            hw_irq: chunk[6],
+            soft_irq: chunk[7],
+            steal: chunk[8],
+        })
+        .collect::<Vec<_>>()
 }
 
-pub fn parse_cpu_states_using_parser_combinator_nom(input: &str) -> CpuStates {
-    let (_, cpus) = tuple((
-        parse_cpu_id,
-        parse_field("us"),
-        parse_field("sy"),
-        parse_field("ni"),
-        parse_field("id"),
-        parse_field("wa"),
-        parse_field("hi"),
-        parse_field("si"),
-        parse_field("st"),
-    ))(input)
-    .unwrap();
-
-    CpuStates {
-        id: cpus.0,
-        user: cpus.1,
-        system: cpus.2,
-        nice: cpus.3,
-        idle: cpus.4,
-        io_wait: cpus.5,
-        hw_irq: cpus.6,
-        soft_irq: cpus.7,
-        steal: cpus.8,
-    }
+pub fn parse_cpu_states_using_parser_combinator_nom(input: &str) -> IResult<&str, CpuStates> {
+    map(
+        tuple((
+            parse_cpu_id,
+            parse_field("us"),
+            parse_field("sy"),
+            parse_field("ni"),
+            parse_field("id"),
+            parse_field("wa"),
+            parse_field("hi"),
+            parse_field("si"),
+            parse_field("st"),
+        )),
+        |cpus| CpuStates {
+            id: cpus.0,
+            user: cpus.1,
+            system: cpus.2,
+            nice: cpus.3,
+            idle: cpus.4,
+            io_wait: cpus.5,
+            hw_irq: cpus.6,
+            soft_irq: cpus.7,
+            steal: cpus.8,
+        },
+    )(input)
 }
 
 fn parse_cpu_id(input: &str) -> IResult<&str, i32> {
@@ -145,8 +151,13 @@ mod tests {
         };
 
         let actual_delimiter = parse_cpu_states_using_delimiter(input);
-        let actual_regex = parse_cpu_states_using_regex(input);
-        let actual_parser_combinator_nom = parse_cpu_states_using_regex(input);
+        let actual_regex = parse_cpu_states_using_regex(input)
+            .into_iter()
+            .nth(0)
+            .unwrap();
+        let actual_parser_combinator_nom = parse_cpu_states_using_parser_combinator_nom(input)
+            .unwrap()
+            .1;
 
         assert_eq!(actual_delimiter, expected);
         assert_eq!(actual_regex, expected);

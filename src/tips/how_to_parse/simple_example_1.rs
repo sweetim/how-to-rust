@@ -1,20 +1,13 @@
-use nom::{
-    bytes::complete::tag,
-    character::complete::space0,
-    combinator::opt,
-    number::complete::float,
-    sequence::{delimited, terminated, tuple},
-    IResult,
-};
+use nom::{bytes::complete::tag, combinator::map, sequence::tuple, IResult};
 
 use super::common::parse_field;
 
 #[derive(Debug, PartialEq)]
 pub struct VirtualMemory {
-    total: f32,
-    free: f32,
-    used: f32,
-    available: f32,
+    pub total: f32,
+    pub free: f32,
+    pub used: f32,
+    pub available: f32,
 }
 
 pub fn parse_virtual_memory_using_delimiter(input: &str) -> VirtualMemory {
@@ -47,22 +40,24 @@ pub fn parse_virtual_memory_simple_using_regex(input: &str) -> VirtualMemory {
     }
 }
 
-pub fn parse_virtual_memory_using_parser_combinator_nom(input: &str) -> VirtualMemory {
-    let (_, virtual_memory) = tuple((
-        tag("MiB Swap:"),
-        parse_field("total"),
-        parse_field("free"),
-        parse_field("used."),
-        parse_field("avail Mem"),
-    ))(input)
-    .unwrap();
-
-    VirtualMemory {
-        total: virtual_memory.1,
-        free: virtual_memory.2,
-        used: virtual_memory.3,
-        available: virtual_memory.4,
-    }
+pub fn parse_virtual_memory_using_parser_combinator_nom(
+    input: &str,
+) -> IResult<&str, VirtualMemory> {
+    map(
+        tuple((
+            tag("MiB Swap:"),
+            parse_field("total"),
+            parse_field("free"),
+            parse_field("used."),
+            parse_field("avail Mem"),
+        )),
+        |virtual_memory| VirtualMemory {
+            total: virtual_memory.1,
+            free: virtual_memory.2,
+            used: virtual_memory.3,
+            available: virtual_memory.4,
+        },
+    )(input)
 }
 
 #[cfg(test)]
@@ -75,7 +70,9 @@ mod tests {
 
         let actual_delimiter = parse_virtual_memory_using_delimiter(input);
         let actual_regex = parse_virtual_memory_simple_using_regex(input);
-        let actual_parser_combinator_nom = parse_virtual_memory_using_parser_combinator_nom(input);
+        let actual_parser_combinator_nom = parse_virtual_memory_using_parser_combinator_nom(input)
+            .unwrap()
+            .1;
 
         let expected = VirtualMemory {
             total: 3048.0,
