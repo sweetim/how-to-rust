@@ -52,7 +52,7 @@ pub fn parse_summary_display_using_regex(input: &str) -> SummaryDisplay {
 }
 
 pub fn parse_summary_display_using_parser_combinator_nom(input: &str) -> SummaryDisplay {
-    let (_, summary_display) = map(
+    map(
         tuple((
             many1(terminated(
                 parse_cpu_states_using_parser_combinator_nom,
@@ -68,9 +68,7 @@ pub fn parse_summary_display_using_parser_combinator_nom(input: &str) -> Summary
             virtual_memory: output.1,
         },
     )(input)
-    .unwrap();
-
-    summary_display
+    .unwrap().1
 }
 
 #[cfg(test)]
@@ -188,7 +186,7 @@ MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem
         let actual_parser_combinator_nom = parse_summary_display_using_parser_combinator_nom(input);
 
         assert_eq!(actual_delimiter, expected);
-        // assert_eq!(actual_regex, expected);
-        // assert_eq!(actual_parser_combinator_nom, expected);
+        assert_eq!(actual_regex, expected);
+        assert_eq!(actual_parser_combinator_nom, expected);
     }
 }
