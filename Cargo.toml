@@ -16,3 +16,5 @@ serde_json = "1.0"
 anyhow = "1.0.75"
 thiserror = "1.0"
 mockall = "0.12.1"
+regex = { version =  "1.10.2", features = ["std"]}
+nom = "7.1.3"

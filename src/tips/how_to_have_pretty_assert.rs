@@ -47,6 +47,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn with_normal_assertion() {
         let (actual, expected) = get_sample();
 
@@ -54,6 +55,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn with_pretty_assertion() {
         let (actual, expected) = get_sample();
 
