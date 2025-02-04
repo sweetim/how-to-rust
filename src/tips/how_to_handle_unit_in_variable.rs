@@ -29,7 +29,7 @@ pub struct VehicleStatusWithUnitSuffix {
     pub speed_kph: f32,
     pub battery_soc_percentage: f32,
     pub battery_voltage_mV: f32,
-    pub uptime_ms: u32
+    pub uptime_ms: u32,
 }
 
 #[cfg(test)]
@@ -40,10 +40,10 @@ mod tests {
     #[allow(unused_variables)]
     fn it_init_all_vehicle_status_struct() {
         let vehicle_status = VehicleStatus {
-            speed: 10.2, // kph
-            battery_soc: 50.2, // percentage
+            speed: 10.2,               // kph
+            battery_soc: 50.2,         // percentage
             battery_voltage: 120000.1, // mili voltage
-            uptime: 21300, // miliseconds
+            uptime: 21300,             // miliseconds
         };
 
         let vehicle_status_with_docs = VehicleStatusWithDocs {
@@ -61,6 +61,9 @@ mod tests {
         };
 
         assert_eq!(vehicle_status.speed, vehicle_status_with_docs.speed);
-        assert_eq!(vehicle_status_with_unit_suffix.speed_kph, vehicle_status.speed);
+        assert_eq!(
+            vehicle_status_with_unit_suffix.speed_kph,
+            vehicle_status.speed
+        );
     }
 }

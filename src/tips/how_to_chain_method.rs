@@ -7,7 +7,7 @@ impl TemperatureSensorNoChaining {
     pub fn create() -> Self {
         Self {
             sampling_rate_hz: 1.0,
-            is_enabled: false
+            is_enabled: false,
         }
     }
 
@@ -36,7 +36,7 @@ impl TemperatureSensorChaining {
     pub fn create() -> Self {
         Self {
             sampling_rate_hz: 1.0,
-            is_enabled: false
+            is_enabled: false,
         }
     }
 
@@ -60,13 +60,16 @@ impl TemperatureSensorChaining {
 
 #[cfg(test)]
 mod tests {
-    use rstest::rstest;
     use super::*;
+    use rstest::rstest;
 
     #[rstest]
     #[case(false, None)]
     #[case(true, Some(1230.0))]
-    fn it_should_return_value_based_on_activation_no_chaining(#[case] enabled: bool, #[case] expected: Option<f32>) {
+    fn it_should_return_value_based_on_activation_no_chaining(
+        #[case] enabled: bool,
+        #[case] expected: Option<f32>,
+    ) {
         let mut sensor = TemperatureSensorNoChaining::create();
         sensor.configure_sampling_rate(10.0);
         sensor.activate(enabled);
@@ -79,7 +82,10 @@ mod tests {
     #[rstest]
     #[case(false, None)]
     #[case(true, Some(1230.0))]
-    fn it_should_return_value_based_on_activation_chaining(#[case] enabled: bool, #[case] expected: Option<f32>) {
+    fn it_should_return_value_based_on_activation_chaining(
+        #[case] enabled: bool,
+        #[case] expected: Option<f32>,
+    ) {
         let actual = TemperatureSensorChaining::create()
             .configure_sampling_rate(10.0)
             .activate(enabled)

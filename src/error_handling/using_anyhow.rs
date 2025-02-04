@@ -13,8 +13,8 @@ pub fn read_student_from_file(path: &str) -> anyhow::Result<Student> {
 /// with_context vs context
 /// https://stackoverflow.com/questions/65459952/what-is-the-difference-between-context-and-with-context-in-anyhow
 pub fn read_student_from_file_with_context(path: &str) -> anyhow::Result<Student> {
-    let file = std::fs::File::open(&path)
-        .with_context(|| format!("failed to read file from ({path})"))?;
+    let file =
+        std::fs::File::open(&path).with_context(|| format!("failed to read file from ({path})"))?;
 
     let text = std::io::read_to_string(&file)?;
 
@@ -30,8 +30,7 @@ mod tests {
 
     #[test]
     fn it_will_error_read_student_from_file() {
-        let err = read_student_from_file("some.json")
-            .unwrap_err();
+        let err = read_student_from_file("some.json").unwrap_err();
 
         assert_eq!(format!("{}", err), "No such file or directory (os error 2)");
 
@@ -43,8 +42,7 @@ mod tests {
 
     #[test]
     fn it_will_error_read_student_from_file_with_context() {
-        let err = read_student_from_file_with_context("some.json")
-            .unwrap_err();
+        let err = read_student_from_file_with_context("some.json").unwrap_err();
 
         assert_eq!(format!("{}", err), "failed to read file from (some.json)");
 

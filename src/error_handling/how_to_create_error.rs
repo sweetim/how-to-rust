@@ -14,7 +14,7 @@ impl Account {
     pub fn new(amount: u32, total_withdrawal_limit: u32) -> Self {
         Self {
             amount,
-            total_withdrawal_limit
+            total_withdrawal_limit,
         }
     }
 
@@ -23,7 +23,9 @@ impl Account {
             return Err(format!("withdraw limit exceeded total withdrawal limit"));
         }
 
-        self.amount = self.amount.checked_sub(amount)
+        self.amount = self
+            .amount
+            .checked_sub(amount)
             .ok_or_else(|| format!("insufficient balance in account ({})", self.amount))?;
 
         Ok(self.amount)
@@ -34,7 +36,9 @@ impl Account {
             return Err(AccountError::ExceedWithdrawalLimit);
         }
 
-        self.amount = self.amount.checked_sub(amount)
+        self.amount = self
+            .amount
+            .checked_sub(amount)
             .ok_or_else(|| AccountError::InsufficientBalance(self.amount))?;
 
         Ok(self.amount)
@@ -60,7 +64,10 @@ mod tests {
         assert!(actual.is_err());
 
         let err = actual.unwrap_err();
-        assert_eq!(err, format!("withdraw limit exceeded total withdrawal limit"));
+        assert_eq!(
+            err,
+            format!("withdraw limit exceeded total withdrawal limit")
+        );
     }
 
     #[test]

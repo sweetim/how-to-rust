@@ -14,8 +14,7 @@ mod tests {
 
     #[test]
     fn it_will_error_read_student_from_file() {
-        let err = read_student_from_file("some.json")
-            .unwrap_err();
+        let err = read_student_from_file("some.json").unwrap_err();
 
         assert_eq!(format!("{}", err), "No such file or directory (os error 2)");
 

@@ -10,7 +10,11 @@ pub fn get_discount_rate_using_if_else_style_1(is_member: bool) -> f32 {
 }
 
 pub fn get_discount_rate_using_if_else_style_2(is_member: bool) -> f32 {
-    if is_member { MEMBER_RATE } else { NON_MEMBER_RATE }
+    if is_member {
+        MEMBER_RATE
+    } else {
+        NON_MEMBER_RATE
+    }
 }
 
 pub fn get_discount_rate_using_if_else_style_3(is_member: bool) -> f32 {
@@ -24,7 +28,7 @@ pub fn get_discount_rate_using_if_else_style_3(is_member: bool) -> f32 {
 pub fn get_discount_rate_using_match(is_member: bool) -> f32 {
     match is_member {
         true => MEMBER_RATE,
-        false => NON_MEMBER_RATE
+        false => NON_MEMBER_RATE,
     }
 }
 
@@ -51,6 +55,6 @@ mod tests {
             get_discount_rate_using_chaining(is_member),
         ];
 
-        assert_eq!(actual, vec![ expected; actual.len() ]);
+        assert_eq!(actual, vec![expected; actual.len()]);
     }
 }

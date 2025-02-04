@@ -1,4 +1,4 @@
-use super::how_to_create_error::{AccountError, Account};
+use super::how_to_create_error::{Account, AccountError};
 
 pub fn consume_using_unwrap() {
     let mut account = Account::new(1000, 100);

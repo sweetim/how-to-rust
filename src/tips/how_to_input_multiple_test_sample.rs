@@ -16,20 +16,21 @@ mod tests {
 
     #[test]
     fn without_parameterized_is_overheating() {
-        [
-            (123.0, true),
-            (13.0, false)
-        ]
-        .into_iter()
-        .for_each(|(input, expected)| {
-            let mut mock = MockSensor::new();
+        [(123.0, true), (13.0, false)]
+            .into_iter()
+            .for_each(|(input, expected)| {
+                let mut mock = MockSensor::new();
 
-            mock.expect_get_value()
-                .times(1)
-                .return_const(input);
+                mock.expect_get_value().times(1).return_const(input);
 
-            assert_eq!(is_overheating(&mock), expected, "input is {} expected to be ({})", input, expected);
-        });
+                assert_eq!(
+                    is_overheating(&mock),
+                    expected,
+                    "input is {} expected to be ({})",
+                    input,
+                    expected
+                );
+            });
     }
 
     #[rstest]
@@ -38,9 +39,7 @@ mod tests {
     fn with_parameterized_is_overheating(#[case] input: f32, #[case] expected: bool) {
         let mut mock = MockSensor::new();
 
-        mock.expect_get_value()
-            .times(1)
-            .return_const(input);
+        mock.expect_get_value().times(1).return_const(input);
 
         assert_eq!(is_overheating(&mock), expected);
     }

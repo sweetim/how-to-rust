@@ -88,15 +88,14 @@ mod tests {
     }
 
     fn generate_fake_sample_data() -> Vec<UserIdentity> {
-        let seed: [u8; 32] = [ 1; 32 ];
+        let seed: [u8; 32] = [1; 32];
         let ref mut rng = rand::rngs::StdRng::from_seed(seed);
 
-        (0..10).into_iter()
-            .map(|_| {
-                UserIdentity {
-                    name: fake::faker::name::en::Name().fake_with_rng(rng),
-                    email: fake::faker::internet::en::SafeEmail().fake_with_rng(rng),
-                }
+        (0..10)
+            .into_iter()
+            .map(|_| UserIdentity {
+                name: fake::faker::name::raw::Name(fake::locales::EN).fake_with_rng(rng),
+                email: fake::faker::internet::en::SafeEmail().fake_with_rng(rng),
             })
             .collect()
     }

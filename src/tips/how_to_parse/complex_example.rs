@@ -24,8 +24,7 @@ pub struct SummaryDisplay {
 }
 
 pub fn parse_sumamry_display_using_delimiter(input: &str) -> SummaryDisplay {
-    let lines = input.trim_end().split("\n")
-        .collect::<Vec<_>>();
+    let lines = input.trim_end().split("\n").collect::<Vec<_>>();
 
     let virtual_memory_line_number: usize = match lines.last().unwrap().is_empty() {
         true => lines.len() - 2,
@@ -68,7 +67,8 @@ pub fn parse_summary_display_using_parser_combinator_nom(input: &str) -> Summary
             virtual_memory: output.1,
         },
     )(input)
-    .unwrap().1
+    .unwrap()
+    .1
 }
 
 #[cfg(test)]
@@ -114,17 +114,21 @@ MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem";
     }
 
     #[rstest]
-    #[case(r"%Cpu0  :  0.0 us, 22.7 sy,  0.0 ni, 77.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    #[case(
+        r"%Cpu0  :  0.0 us, 22.7 sy,  0.0 ni, 77.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 %Cpu1  :  4.8 us,  0.0 sy,  0.0 ni, 95.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 %Cpu2  :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 %Cpu3  :  5.3 us, 10.5 sy,  0.0 ni, 84.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
-MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem")]
-    #[case::with_new_line(r"%Cpu0  :  0.0 us, 22.7 sy,  0.0 ni, 77.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem"
+    )]
+    #[case::with_new_line(
+        r"%Cpu0  :  0.0 us, 22.7 sy,  0.0 ni, 77.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 %Cpu1  :  4.8 us,  0.0 sy,  0.0 ni, 95.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 %Cpu2  :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 %Cpu3  :  5.3 us, 10.5 sy,  0.0 ni, 84.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 MiB Swap:   3048.0 total,   2048.0 free,      0.0 used.   3392.8 avail Mem
-")]
+"
+    )]
     fn it_can_parse_top_header_multi_cpus(#[case] input: &str) {
         let expected = SummaryDisplay {
             cpu_states: vec![

@@ -1,11 +1,10 @@
 use super::common::Student;
 
 pub fn read_student_from_file(path: &str) -> Student {
-    let file = std::fs::File::open(&path)
-        .expect(format!("file not found {path}").as_str());
+    let file = std::fs::File::open(&path).expect(format!("file not found {path}").as_str());
 
-    let text = std::io::read_to_string(&file)
-        .expect(format!("fail to read from ({path})").as_str());
+    let text =
+        std::io::read_to_string(&file).expect(format!("fail to read from ({path})").as_str());
 
     serde_json::from_str(&text)
         .expect(format!("failed to deserialize into json from ({path})").as_str())

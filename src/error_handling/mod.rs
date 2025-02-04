@@ -1,9 +1,9 @@
 pub mod common;
-pub mod how_to_create_error;
 pub mod how_to_consume_error;
-pub mod using_unwrap;
-pub mod using_expect;
-pub mod using_dynamic_trait;
+pub mod how_to_create_error;
 pub mod using_anyhow;
 pub mod using_custom_enum;
+pub mod using_dynamic_trait;
+pub mod using_expect;
 pub mod using_thiserror;
+pub mod using_unwrap;

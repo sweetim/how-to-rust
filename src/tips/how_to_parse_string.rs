@@ -16,23 +16,27 @@ mod tests {
         let expected = vec![123, 321];
         let input = vec!["123", "321"];
 
-        let actual_using_iter = input.iter()
+        let actual_using_iter = input
+            .iter()
             .filter_map(|x| x.parse::<u32>().ok())
             .collect::<Vec<_>>();
 
-        let actual_using_filter_map_ok_closure = input.clone()
+        let actual_using_filter_map_ok_closure = input
+            .clone()
             .into_iter()
             .map(str::parse::<u32>)
             .filter_map(|e| e.ok())
             .collect::<Vec<_>>();
 
-        let actual_using_filter_map_method = input.clone()
+        let actual_using_filter_map_method = input
+            .clone()
             .into_iter()
             .map(str::parse::<u32>)
             .filter_map(Result::ok)
             .collect::<Vec<_>>();
 
-        let actual_using_into_iter = input.into_iter()
+        let actual_using_into_iter = input
+            .into_iter()
             .filter_map(|x| x.parse::<u32>().ok())
             .collect::<Vec<_>>();
 
