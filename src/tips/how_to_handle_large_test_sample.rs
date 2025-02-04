@@ -94,7 +94,7 @@ mod tests {
         (0..10)
             .into_iter()
             .map(|_| UserIdentity {
-                name: fake::faker::name::raw::Name(fake::locales::EN).fake_with_rng(rng),
+                name: fake::faker::name::en::Name().fake_with_rng(rng),
                 email: fake::faker::internet::en::SafeEmail().fake_with_rng(rng),
             })
             .collect()
