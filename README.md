@@ -79,10 +79,10 @@ intermediate to advance rust developer
     - [ ] declarative macros
     - [ ] procedural macros
 - [ ] async await
-- [ ] parser
-    - [ ] simple if condition
-    - [ ] regex
-    - [ ] grammar
+- [X] parser
+    - [X] simple if condition
+    - [X] regex
+    - [X] grammar (nom)
 - [ ] state machine
     - [ ] object oriented approach
     - [ ] rust type approach
