@@ -3,8 +3,8 @@ use nom::{
     bytes::complete::tag,
     character::complete::{digit0, space0},
     combinator::{map, map_res},
-    sequence::{preceded, terminated, tuple},
-    IResult,
+    sequence::{preceded, terminated},
+    IResult, Parser,
 };
 
 use super::common::parse_field;
@@ -79,7 +79,7 @@ pub fn parse_cpu_states_using_regex(input: &str) -> Vec<CpuStates> {
 
 pub fn parse_cpu_states_using_parser_combinator_nom(input: &str) -> IResult<&str, CpuStates> {
     map(
-        tuple((
+        (
             parse_cpu_id,
             parse_field("us"),
             parse_field("sy"),
@@ -89,7 +89,7 @@ pub fn parse_cpu_states_using_parser_combinator_nom(input: &str) -> IResult<&str
             parse_field("hi"),
             parse_field("si"),
             parse_field("st"),
-        )),
+        ),
         |cpus| CpuStates {
             id: cpus.0,
             user: cpus.1,
@@ -101,17 +101,19 @@ pub fn parse_cpu_states_using_parser_combinator_nom(input: &str) -> IResult<&str
             soft_irq: cpus.7,
             steal: cpus.8,
         },
-    )(input)
+    )
+    .parse(input)
 }
 
 fn parse_cpu_id(input: &str) -> IResult<&str, i32> {
     alt((
         map(tag("%Cpu(s):"), |_| -1),
         map_res(
-            preceded(tag("%Cpu"), terminated(digit0, tuple((space0, tag(":"))))),
+            preceded(tag("%Cpu"), terminated(digit0, (space0, tag(":")))),
             str::parse::<i32>,
         ),
-    ))(input)
+    ))
+    .parse(input)
 }
 
 #[cfg(test)]

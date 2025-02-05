@@ -1,4 +1,4 @@
-use nom::{bytes::complete::tag, combinator::map, sequence::tuple, IResult};
+use nom::{bytes::complete::tag, combinator::map, IResult, Parser};
 
 use super::common::parse_field;
 
@@ -44,20 +44,21 @@ pub fn parse_virtual_memory_using_parser_combinator_nom(
     input: &str,
 ) -> IResult<&str, VirtualMemory> {
     map(
-        tuple((
+        (
             tag("MiB Swap:"),
             parse_field("total"),
             parse_field("free"),
             parse_field("used."),
             parse_field("avail Mem"),
-        )),
+        ),
         |virtual_memory| VirtualMemory {
             total: virtual_memory.1,
             free: virtual_memory.2,
             used: virtual_memory.3,
             available: virtual_memory.4,
         },
-    )(input)
+    )
+    .parse(input)
 }
 
 #[cfg(test)]

@@ -3,7 +3,8 @@ use nom::{
     character::complete::line_ending,
     combinator::{eof, map},
     multi::many1,
-    sequence::{terminated, tuple},
+    sequence::terminated,
+    Parser,
 };
 
 use super::{
@@ -52,7 +53,7 @@ pub fn parse_summary_display_using_regex(input: &str) -> SummaryDisplay {
 
 pub fn parse_summary_display_using_parser_combinator_nom(input: &str) -> SummaryDisplay {
     map(
-        tuple((
+        (
             many1(terminated(
                 parse_cpu_states_using_parser_combinator_nom,
                 line_ending,
@@ -61,12 +62,13 @@ pub fn parse_summary_display_using_parser_combinator_nom(input: &str) -> Summary
                 parse_virtual_memory_using_parser_combinator_nom,
                 alt((line_ending, eof)),
             ),
-        )),
+        ),
         |output| SummaryDisplay {
             cpu_states: output.0,
             virtual_memory: output.1,
         },
-    )(input)
+    )
+    .parse(input)
     .unwrap()
     .1
 }
