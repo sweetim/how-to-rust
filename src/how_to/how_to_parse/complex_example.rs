@@ -79,7 +79,7 @@ mod tests {
     use rstest::rstest;
 
     use super::*;
-    use crate::tips::how_to_parse::{simple_example_1::VirtualMemory, simple_example_2::CpuStates};
+    use crate::how_to::how_to_parse::{simple_example_1::VirtualMemory, simple_example_2::CpuStates};
 
     #[test]
     fn it_can_parse_top_header_overall_cpus() {

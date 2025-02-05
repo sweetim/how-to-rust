@@ -11,3 +11,4 @@ pub mod how_to_ternary_operator;
 pub mod how_to_write_long_number;
 pub mod how_to_write_safe_arithmetic;
 pub mod how_to_write_string_variable;
+pub mod how_to_handle_error;
