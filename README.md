@@ -1,5 +1,5 @@
-# rust-faq
-a book about rust
+# how to rust
+a how to guide for rust programming language
 
 # concept
 this book will serve as a quick guideline for the frequent issues that you encounter when writing using rust
@@ -11,11 +11,6 @@ every chapter follows the flow like below
     - pros and cons of each methodology
 
  the book presentation is closely analogous to cookbook series
-
-# book writing stages
-- write all sample code
-- write guide based on sample code
-- refine
 
 # target audience
 intermediate to advance rust developer
@@ -104,17 +99,18 @@ intermediate to advance rust developer
     - [ ] embedded
 - [ ] mocking and testing
     - [ ] code coverage
-    - [ ] parameterized testing
+    - [X] parameterized testing
     - [ ] continuous event testing method
         - [ ] marble diagram
     - [ ] mocking
         - [ ] external crate
         - [ ] system I/O (network, file, time, etc)
+    - [X] benchmarking (criterion)
 - [ ] CI/CD
     - [ ] linting and formatting
     - [ ] build flags and optimization
-    - [ ] cloud runner
-        - [ ] github actions
+    - [X] cloud runner
+        - [X] github actions
     - [ ] version management
         - [ ] build environment
         - [ ] toolchain versions
