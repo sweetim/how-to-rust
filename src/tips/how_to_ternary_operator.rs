@@ -34,8 +34,8 @@ pub fn get_discount_rate_using_match(is_member: bool) -> f32 {
 
 pub fn get_discount_rate_using_chaining(is_member: bool) -> f32 {
     is_member
-        .then(|| MEMBER_RATE)
-        .unwrap_or_else(|| NON_MEMBER_RATE)
+        .then_some(MEMBER_RATE)
+        .unwrap_or(NON_MEMBER_RATE)
 }
 
 #[cfg(test)]

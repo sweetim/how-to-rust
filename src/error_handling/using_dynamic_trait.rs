@@ -1,7 +1,7 @@
 use super::common::Student;
 
 pub fn read_student_from_file(path: &str) -> Result<Student, Box<dyn std::error::Error>> {
-    let file = std::fs::File::open(&path)?;
+    let file = std::fs::File::open(path)?;
     let text = std::io::read_to_string(&file)?;
     let student = serde_json::from_str(&text)?;
 

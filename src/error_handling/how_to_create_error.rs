@@ -20,7 +20,7 @@ impl Account {
 
     pub fn withdraw_with_error_msg(&mut self, amount: u32) -> Result<u32, String> {
         if amount > self.total_withdrawal_limit {
-            return Err(format!("withdraw limit exceeded total withdrawal limit"));
+            return Err("withdraw limit exceeded total withdrawal limit".to_string());
         }
 
         self.amount = self
@@ -39,7 +39,7 @@ impl Account {
         self.amount = self
             .amount
             .checked_sub(amount)
-            .ok_or_else(|| AccountError::InsufficientBalance(self.amount))?;
+            .ok_or(AccountError::InsufficientBalance(self.amount))?;
 
         Ok(self.amount)
     }

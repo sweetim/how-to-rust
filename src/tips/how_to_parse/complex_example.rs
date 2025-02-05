@@ -33,8 +33,8 @@ pub fn parse_sumamry_display_using_delimiter(input: &str) -> SummaryDisplay {
     };
 
     let cpu_states = lines[0..virtual_memory_line_number]
-        .to_vec()
-        .into_iter()
+        .iter()
+        .copied()
         .map(parse_cpu_states_using_delimiter)
         .collect::<Vec<_>>();
 

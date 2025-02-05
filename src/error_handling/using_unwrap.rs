@@ -1,7 +1,7 @@
 use super::common::Student;
 
 pub fn read_student_from_file(path: &str) -> Student {
-    let file = std::fs::File::open(&path).unwrap();
+    let file = std::fs::File::open(path).unwrap();
     let text = std::io::read_to_string(&file).unwrap();
 
     serde_json::from_str(&text).unwrap()

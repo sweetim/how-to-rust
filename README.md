@@ -51,6 +51,7 @@ intermediate to advance rust developer
         - [ ] how to implement lazy evaluated fn?
         - [ ] example of lazy evaluation fn
             - [ ] ok_or vs ok_or_else
+            - [ ] expect vs unwrap_or_else
         - [ ] reference
             - [ ] https://deepu.tech/functional-programming-in-rust/
             - [ ] https://stackoverflow.com/questions/65459952/what-is-the-difference-between-context-and-with-context-in-anyhow

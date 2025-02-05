@@ -29,7 +29,7 @@ impl From<std::io::Error> for ReadStudentFromFileError {
 }
 
 pub fn read_student_from_file(path: &str) -> Result<Student, ReadStudentFromFileError> {
-    let file = std::fs::File::open(&path).map_err(ReadStudentFromFileError::FileError)?;
+    let file = std::fs::File::open(path).map_err(ReadStudentFromFileError::FileError)?;
 
     let text = std::io::read_to_string(&file).map_err(ReadStudentFromFileError::FileError)?;
 
@@ -40,7 +40,7 @@ pub fn read_student_from_file(path: &str) -> Result<Student, ReadStudentFromFile
 }
 
 pub fn read_student_from_file_using_try(path: &str) -> Result<Student, ReadStudentFromFileError> {
-    let file = std::fs::File::open(&path)?;
+    let file = std::fs::File::open(path)?;
     let text = std::io::read_to_string(&file)?;
     let student = serde_json::from_str(&text)?;
 
@@ -50,7 +50,7 @@ pub fn read_student_from_file_using_try(path: &str) -> Result<Student, ReadStude
 pub fn read_student_from_file_with_dynamic_trait(
     path: &str,
 ) -> Result<Student, Box<dyn std::error::Error>> {
-    let file = std::fs::File::open(&path).map_err(ReadStudentFromFileError::FileError)?;
+    let file = std::fs::File::open(path).map_err(ReadStudentFromFileError::FileError)?;
 
     let text = std::io::read_to_string(&file).map_err(ReadStudentFromFileError::FileError)?;
 
@@ -63,7 +63,7 @@ pub fn read_student_from_file_with_dynamic_trait(
 pub fn read_student_from_file_with_dynamic_trait_using_try(
     path: &str,
 ) -> Result<Student, Box<dyn std::error::Error>> {
-    let file = std::fs::File::open(&path)?;
+    let file = std::fs::File::open(path)?;
     let text = std::io::read_to_string(&file)?;
     let student = serde_json::from_str(&text)?;
 

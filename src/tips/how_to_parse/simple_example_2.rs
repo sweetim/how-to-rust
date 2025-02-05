@@ -56,8 +56,7 @@ pub fn parse_cpu_states_using_regex(input: &str) -> Vec<CpuStates> {
 
     let tokens = re
         .captures_iter(input)
-        .map(|captures| captures.extract::<9>().1)
-        .flatten()
+        .flat_map(|captures| captures.extract::<9>().1)
         .map(|text| text.parse::<f32>().unwrap_or(-1.0))
         .collect::<Vec<_>>();
 
@@ -154,8 +153,7 @@ mod tests {
 
         let actual_delimiter = parse_cpu_states_using_delimiter(input);
         let actual_regex = parse_cpu_states_using_regex(input)
-            .into_iter()
-            .nth(0)
+            .into_iter().next()
             .unwrap();
         let actual_parser_combinator_nom = parse_cpu_states_using_parser_combinator_nom(input)
             .unwrap()

@@ -13,7 +13,7 @@ pub enum ReadStudentFromFileThisError {
 
 pub fn read_student_from_file(path: &str) -> Result<Student, ReadStudentFromFileThisError> {
     let file =
-        std::fs::File::open(&path).map_err(|err| ReadStudentFromFileThisError::FileError {
+        std::fs::File::open(path).map_err(|err| ReadStudentFromFileThisError::FileError {
             path: String::from(path),
             source: err,
         })?;
@@ -43,7 +43,7 @@ pub enum ReadStudentFromFileThisErrorUsingFrom {
 pub fn read_student_from_file_using_from(
     path: &str,
 ) -> Result<Student, ReadStudentFromFileThisErrorUsingFrom> {
-    let file = std::fs::File::open(&path)?;
+    let file = std::fs::File::open(path)?;
     let text = std::io::read_to_string(&file)?;
     let student = serde_json::from_str(&text)?;
 

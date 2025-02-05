@@ -79,7 +79,7 @@ mod tests {
 
     fn get_test_sample_from_file_at_compile_time() -> Vec<UserIdentity> {
         let content = include_str!("../../resources/sample_data.json");
-        serde_json::from_str(&content).unwrap()
+        serde_json::from_str(content).unwrap()
     }
 
     #[test]
@@ -92,7 +92,6 @@ mod tests {
         let ref mut rng = rand::rngs::StdRng::from_seed(seed);
 
         (0..10)
-            .into_iter()
             .map(|_| UserIdentity {
                 name: fake::faker::name::en::Name().fake_with_rng(rng),
                 email: fake::faker::internet::en::SafeEmail().fake_with_rng(rng),
