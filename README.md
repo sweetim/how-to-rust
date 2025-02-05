@@ -1,17 +1,6 @@
 # how to rust
 a how to guide for rust programming language
 
-# concept
-this book will serve as a quick guideline for the frequent issues that you encounter when writing using rust
-
-every chapter follows the flow like below
-- topic question
-- various implementation details
-- comparison matrix of each implementation
-    - pros and cons of each methodology
-
- the book presentation is closely analogous to cookbook series
-
 # target audience
 intermediate to advance rust developer
 
@@ -39,13 +28,13 @@ intermediate to advance rust developer
     - [ ] Box vs rc vs arc
     - [ ] Cell vs RefCell vs Mutex vs RwLock
     - [ ] String vs str
-    - [ ] iter vs element index access
+    - [X] iter vs element index access
     - [ ] option vs results
     - [ ] Fn vs FnMut vs FnOnce vs fn
-    - [ ] explicit vs infer type
-        - [ ] .collect
+    - [X] explicit vs infer type
+        - [X] .collect
     - [ ] functional vs imperative
-    - [ ] `{:?}` vs `{:#?}`
+    - [X] `{}` vs `{:?}` vs `{:#?}`
     - [ ] lazy vs eager evaluation
         - [ ] how to know a function is lazy evaluated?
         - [ ] how to implement lazy evaluated fn?
@@ -124,8 +113,3 @@ intermediate to advance rust developer
    - [ ] as crate and publish registry
         - [ ] crate.io
         - [ ] github packages
-
-
-book concept reference
-- https://moodle.ufsc.br/pluginfile.php/2377667/mod_resource/content/0/Effective_Modern_C__.pdf
-- https://isocpp.org/faq
